@@ -89,11 +89,15 @@ func serveFiles(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+	port := "7080"
+	if len(os.Args) > 1 {
+		port = os.Args[1]
+	}
 	r := mux.NewRouter()
 	r.HandleFunc("/env/{varName}", serveEnv).Methods("GET")
 	r.HandleFunc("/files", serveFiles).Methods("GET")
 
 	n := negroni.Classic()
 	n.UseHandler(r)
-	n.Run(":7080")
+	n.Run(":" + port)
 }
