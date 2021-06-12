@@ -1,5 +1,5 @@
 # Build the manager binary
-FROM golang:1.14 as builder
+FROM docker.io/library/golang:alpine as builder
 
 WORKDIR /workspace
 # Copy the Go Modules manifests
@@ -15,11 +15,9 @@ COPY main.go main.go
 # Build
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 GO111MODULE=on go build -a -o bindingdata main.go
 
-# Use distroless as minimal base image to package the manager binary
-# Refer to https://github.com/GoogleContainerTools/distroless for more details
-FROM gcr.io/distroless/static:nonroot
+FROM docker.io/library/alpine:latest
 WORKDIR /
 COPY --from=builder /workspace/bindingdata .
-USER nonroot:nonroot
+USER 65532:65532
 
 ENTRYPOINT ["/bindingdata"]
