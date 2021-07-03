@@ -7,7 +7,7 @@ directory indicated by `SERVICE_BINDING_ROOT` environment variable.  The
 `SERVICE_BINDING_ROOT` is an environment variable set by the KubePreset.
 
 This latest version of this application will be available as a docker image at
-`quay.io/kubepreset/bindingdata:latest`.
+`ghcr.io/kubepreset/bindingdata:latest`.
 
 ## API
 
